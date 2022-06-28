@@ -1,7 +1,19 @@
 const express = require('express');
 const path = require('path');
-const favicon = require('serve-favicon');
 const app = express();
+
+const asset = require("./assets.json")
+
+asset.css.forEach((e)=>{
+  app.get(e,(req,res)=>{
+    res.sendFile(__dirname + e)
+  })
+})
+asset.js.forEach((e)=>{
+  app.get(e,(req,res)=>{
+    res.sendFile(__dirname + e)
+  })
+})
 
 const forceSSL = function () {
   return function (req, res, next) {
@@ -13,12 +25,12 @@ const forceSSL = function () {
     next();
   }
 };
-app.use(express.static('./frontend/dist/frontend/index.html'));
+app.use(express.static('./index.html'));
 
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, '/frontend/dist/frontend/index.html'));
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, '/index.html'));
 });
 
 app.use(forceSSL());
 
-app.listen(process.env.PORT || 8080);
+app.listen(process.env.PORT || 3000);
