@@ -1,11 +1,24 @@
-const express = require('express')
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const app = express();
 
-const app = express()
+const forceSSL = function () {
+  return function (req, res, next) {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+      return res.redirect(
+        ['https://', req.get('Host'), req.url].join('')
+      );
+    }
+    next();
+  }
+};
+app.use(express.static('./frontend/dist/frontend/index.html'));
 
-app.get("/",(req, res)=>{
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, '/frontend/dist/frontend/index.html'));
+});
 
-})
+app.use(forceSSL());
 
-app.post("/upload",(req, res) => {
-    
-})
+app.listen(process.env.PORT || 8080);
