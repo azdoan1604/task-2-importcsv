@@ -1,0 +1,16 @@
+{
+  "name": "xlstocsv",
+  "version": "1.0.0",
+  "description": "",
+  "main": "xlstocsv.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@longanphuc/orm-mysql": "^1.0.6",
+    "express": "^4.18.1",
+    "xlsx": "^0.18.5"
+  }
+}
